@@ -1,0 +1,3 @@
+function home(){
+	document.write("/");
+}

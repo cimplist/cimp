@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+ 	<import resource="classpath:spring/security-config.xml"/>	
+ 	
+	<context:component-scan base-package="com.cimplist.cip.user.dao" />
+	<context:component-scan base-package="com.cimplist.cip.user.svc" />
+	<context:component-scan base-package="com.cimplist.cip.epms.dao" />	
+	<context:component-scan base-package="com.cimplist.cip.epms.svc" />
+
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<context:annotation-config />
+	<!-- Instructs the container to look for beans with @Transactional and decorate them -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!-- Creates an in-memory "rewards" database populated with test data for fast testing -->
+	<jdbc:embedded-database id="dataSource">
+		<jdbc:script location="classpath:com/cimplist/cip/schema/schema-user.sql"/>
+		<jdbc:script location="classpath:com/cimplist/cip/schema/test-data-user.sql"/>		
+		<jdbc:script location="classpath:com/cimplist/cip/schema/schema-kpi.sql"/>
+		<jdbc:script location="classpath:com/cimplist/cip/schema/test-data-kpi-user1.sql"/>		
+	<jdbc:script location="classpath:com/cimplist/cip/schema/test-data-kpi-user2.sql"/>		
+	</jdbc:embedded-database>
+
+	<!-- A Hibernate SessionFactory for mapping Accounts and Restaurants from object to relation tables -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="packagesToScan">
+			<list>
+				<value>com.cimplist.cip.user.domain</value>	
+				<value>com.cimplist.cip.epms.domain</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.format_sql=true
+				hibernate.show_sql=true
+			</value>
+		</property>
+	</bean>
+
+	<!-- A transaction manager for working with Hibernate SessionFactories -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>		
+
+</beans>

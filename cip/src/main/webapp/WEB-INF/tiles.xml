@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="home.page.tile" template="/WEB-INF/views/layouts/home.jsp">
+		<put-attribute name="title" value="CimplistEmployee PMS" />
+		<put-attribute name="navtop" value="/WEB-INF/views/tiles/top-nav.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/tiles/common_menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/home_body.jsp" />
+		<put-attribute name="sidemenu" value="/WEB-INF/views/tiles/sidemenu.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+	</definition>
+	<definition name="myteam.tile" template="/WEB-INF/views/layouts/details.jsp">
+		<put-attribute name="title" value="CimplistEmployee PMS" />
+		<put-attribute name="navtop" value="/WEB-INF/views/tiles/top-nav.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/tiles/common_menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/user/myteam.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+	</definition>	
+	<definition name="mykpi.tile" template="/WEB-INF/views/layouts/details.jsp">
+		<put-attribute name="title" value="CimplistEmployee PMS" />
+		<put-attribute name="navtop" value="/WEB-INF/views/tiles/top-nav.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/tiles/common_menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/kpi/objectives.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+	</definition>	
+	<definition name="mykpireview.tile" template="/WEB-INF/views/layouts/details.jsp">
+		<put-attribute name="title" value="CimplistEmployee PMS" />
+		<put-attribute name="navtop" value="/WEB-INF/views/tiles/top-nav.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/tiles/common_menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/kpi/objectivesReview.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+	</definition>	
+	<definition name="myaccount.tile" template="/WEB-INF/views/layouts/details.jsp">
+		<put-attribute name="title" value="CimplistEmployee PMS" />
+		<put-attribute name="navtop" value="/WEB-INF/views/tiles/top-nav.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/tiles/common_menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/user/myaccount.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+	</definition>			
+</tiles-definitions>

@@ -1,0 +1,44 @@
+@import "base.css";
+
+#content{
+	margin-top: 5px ; /* 58 % 960*/
+	margin-left: 2.041667%; /* 10 % 960*/
+	
+	margin-right: 1.041667%; /* 10 % 960*/
+	float: left;
+	width: 72.7083333%; /* 698 % 960*/
+}
+#content h1 {
+	text-transform: uppercase;
+	font-size: 1.3125em;
+}
+#content h1 span {
+	text-shadow: 4px 4px 0px hsla(140,3%,26%,0.4);
+	display: block;
+	line-height: 1.052631579em;
+	color:#757474;
+	font-size: .550724638em;
+}
+aside{
+	float: right;
+	margin-right: 1.041667%; /* 10 % 960*/
+	margin-left: 1.041667%; /* 10 % 960*/
+	width: 22.7083333%; /*218%960*/
+}
+aside img{
+	max-width: 45%;
+	
+}
+.data-table{
+	border:none;
+	font-size: .85em; 
+} 
+.data-table th{
+	padding: 2px;
+	background: #D0D0D0;
+	text-align: left;
+}
+.data-table td{
+	padding: 2px;
+	background: #F0F0F0;
+} 

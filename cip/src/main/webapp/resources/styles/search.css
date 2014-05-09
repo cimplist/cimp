@@ -1,0 +1,52 @@
+@import "base.css";
+
+#content{
+	margin-top: 58px ; /* 58 % 960*/
+	margin-right: 1.041667%; /* 10 % 960*/
+	float: right;
+	width: 72.7083333%; /* 698 % 960*/
+}
+#content h1 {
+
+	font-family: Ariel,Helvetica, Verdana, sans-serif;
+	text-transform: uppercase;
+	font-size: 4.3125em;
+}
+#content h1 span {
+	text-shadow: 4px 4px 0px hsla(140,3%,26%,0.4);
+	display: block;
+	line-height: 1.052631579em;
+	color:#757474;
+	font-size: .550724638em;
+}
+aside{
+	border-right-style: solid;
+	border-right-width: 0.2083333333333333%;
+	margin-top: 58px; /* 58 % 960*/	
+	float: left;
+	margin-right: 1.041667%; /* 10 % 960*/
+	margin-left: 1.041667%; /* 10 % 960*/
+	width: 22.7083333%; /*218%960*/
+}
+aside img{
+	max-width: 45%;
+	
+}
+.searchresult{
+	display: table;
+	padding-right: 1.041667%; /* 10 % 960*/
+	padding-left: 1.041667%; /* 10 % 960*/	
+	width: 72.7083333%;  /* 698 % 960*/
+	float: left;	
+} 
+.searchitem{
+	display: table-row;
+}
+ .searchitem-part{
+	display: table-cell;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-right:10px;
+	padding-left:10px;
+	float: left;
+}
