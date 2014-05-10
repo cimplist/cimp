@@ -10,6 +10,23 @@
 	<context:component-scan base-package="com.cimplist.cip.security" />
 	<context:annotation-config />
 
+	<bean id="mySuccessHandler"
+		class="com.cimplist.cip.security.RestSavedRequestAwareAuthenticationSuccessHandler" />
+	<bean id="myFailureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" />
+
+	<security:http  pattern="/rest/**" entry-point-ref="restAuthenticationEntryPoint" use-expressions="true">
+		<security:intercept-url pattern="/rest/**" access="isAuthenticated()" />
+
+		<security:form-login
+			authentication-success-handler-ref="mySuccessHandler"
+			authentication-failure-handler-ref="myFailureHandler" />
+
+		<security:logout />
+	</security:http>
+
+
+
 	<security:http access-denied-page="/denied"
 		use-expressions="true">
 		<security:form-login login-page="/login"
