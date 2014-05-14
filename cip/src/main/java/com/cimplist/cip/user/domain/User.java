@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="tbUser")
-@JsonIgnoreProperties({"manager","subordinates"})
+@JsonIgnoreProperties({"manager","subordinates","password","passwordConfirm","accountNonExpired","accountNonLocked","credentialsNonExpired","enabled"})
 public class User {
 	@Id
 	@GeneratedValue
