@@ -55,4 +55,19 @@ private static final String BASE_URI = "/rest";
 			assertTrue(e.toString(),false);
 		}
     }
+    @Test
+    public void testGetUserTeam(){
+    	try {
+			ResultActions result  = mockMvc.perform(get(BASE_URI+"/user/{userName}/team", "samm"));
+			result.andDo(print());
+			result.andExpect(status().isOk());
+			result.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+			result.andExpect(jsonPath("[0].key").value(2));
+			result.andExpect(jsonPath("[0].userName").value("markl"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(e.toString(),false);
+		}
+    }
+
 }

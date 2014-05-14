@@ -1,5 +1,7 @@
 package com.cimplist.cip.user.web.rest;
 
+import java.util.Set;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -25,11 +27,17 @@ public class UserProfileRESTroller {
 	@ResponseStatus(HttpStatus.OK)
 	public User get(@PathVariable("userName") String  userName) {  
 		logger.info("Calling JSON service /user/"+userName);
-		User user = userService.getUserWithTeamByUserName(userName);
-		//user= new User();
-		//user.setUserName(userName);
+		User user = userService.getUserByUserName(userName);
 		return user;
 	}
 
+	@RequestMapping(value = "/{userName}/team" , method = RequestMethod.GET, produces="application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public Set<User> getTeam(@PathVariable("userName") String  userName) {  
+		logger.info("Calling JSON service /user/"+userName);
+		User user = userService.getUserWithTeamByUserName(userName);
+		Set<User> team = user.getSubordinates();
+		return team;
+	}
 	
 }
