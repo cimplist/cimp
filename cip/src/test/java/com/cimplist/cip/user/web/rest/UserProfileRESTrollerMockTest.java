@@ -49,7 +49,7 @@ private static final String BASE_URI = "/rest";
 			result.andExpect(status().isOk());
 			result.andExpect(content().contentType(MediaType.APPLICATION_JSON));
 			result.andExpect(jsonPath("key").value(3));
-			result.andExpect(jsonPath("userName").value("Sam"));
+			result.andExpect(jsonPath("userName").value("samm"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(e.toString(),false);

@@ -31,6 +31,9 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	<logger name="org.springframework.http">
+		<level value="trace" />
+	</logger>
 
 	<!-- Root Logger -->
 	<root>

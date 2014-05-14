@@ -18,9 +18,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name="tbUser")
+@JsonIgnoreProperties({"manager","subordinates"})
 public class User {
 	@Id
 	@GeneratedValue
@@ -40,15 +43,18 @@ public class User {
 	private boolean enabled;
 
 
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(name="tbUserAuthorityJT", joinColumns={@JoinColumn(name="userID")}, 
     	inverseJoinColumns={@JoinColumn(name="roleID")})
 	private List<Role> roles=new LinkedList<Role>();
 	
-	@ManyToOne( cascade={CascadeType.ALL})
+	
+	@ManyToOne( fetch = FetchType.LAZY,cascade={CascadeType.ALL})
     @JoinColumn(name="managerID")
     private User manager;
  
+	
     @OneToMany(mappedBy="manager")
     private Set<User> subordinates = new HashSet<User>();
 	

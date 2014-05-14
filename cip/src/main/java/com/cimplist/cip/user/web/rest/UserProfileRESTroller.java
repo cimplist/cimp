@@ -26,6 +26,8 @@ public class UserProfileRESTroller {
 	public User get(@PathVariable("userName") String  userName) {  
 		logger.info("Calling JSON service /user/"+userName);
 		User user = userService.getUserWithTeamByUserName(userName);
+		//user= new User();
+		//user.setUserName(userName);
 		return user;
 	}
 
