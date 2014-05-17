@@ -16,8 +16,6 @@ public class KpiControllerUtil {
 			Long key = getIdFromParamName (pname);
 			if(key>=0){
 				comments.put(key, val);
-			}else{
-				
 			}
 			logger.info(pname+":"+val);	
 			

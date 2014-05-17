@@ -60,10 +60,8 @@ public class KpiController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		String reviewer = userDetails.getUsername();
-		User reviewedBy = userService.getUserByUserName(reviewer);
 		
-		KpiReviewHeader kpiReviewHeader = kpiService.createKpiReviewForUser(userName);	
-		kpiReviewHeader.setReviewedBy(reviewedBy);
+		KpiReviewHeader kpiReviewHeader = kpiService.findOrCreateKpiReviewForUser(userName,reviewer);	
 		
 		model.addAttribute("kpiReviewHeader",kpiReviewHeader);
 		logger.info(kpiReviewHeader.getKpiReviewItems().toString());
@@ -81,7 +79,7 @@ public class KpiController {
 			
 		}
 		kpiService.updateReviewComments(comments);
-		KpiReviewHeader kpiReviewHeader = kpiService.loadKPIReviewHeader(key);
+		KpiReviewHeader kpiReviewHeader = kpiService.getKPIReviewHeader(key);
 		logger.info(kpiReviewHeader.toString());
 		model.addAttribute("kpiReviewHeader",kpiReviewHeader);
 		

@@ -16,6 +16,8 @@ import com.cimplist.cip.epms.domain.KpiHeader;
 import com.cimplist.cip.epms.domain.KpiItem;
 import com.cimplist.cip.epms.domain.KpiReviewHeader;
 import com.cimplist.cip.epms.domain.KpiReviewItem;
+import com.cimplist.cip.user.domain.User;
+import com.cimplist.cip.user.svc.UserProfileService;
 
 @Service
 public class KpiService {
@@ -27,17 +29,20 @@ public class KpiService {
 	private KpiReviewHeaderDAO kpiReviewHeaderDAO;	
 	@Inject
 	private KpiReviewItemDAO kpiReviewItemDAO;
+	@Inject private UserProfileService userService;
 	@Transactional(readOnly=true)
 	public KpiHeader getKpi(String userName) {
 		return kpiHeaderDAO.findByUserName(userName);
 	}
 	
 	@Transactional
-	public KpiReviewHeader createKpiReviewForUser(String userName){
+	public KpiReviewHeader createKpiReviewForUser(String userName, String reviewedBy){
 		KpiHeader kpiHeader = getKpi(userName);
 		KpiReviewHeader review = new KpiReviewHeader();
 		review.setKpiHeader(kpiHeader);
 		review.setStatus("NEW");
+		User reviewer = userService.getUserByUserName(reviewedBy);
+		review.setReviewedBy(reviewer);
 		Long key = kpiReviewHeaderDAO.create(review);
 		review = kpiReviewHeaderDAO.getByKey(key,KpiReviewHeader.class);
 		
@@ -53,15 +58,27 @@ public class KpiService {
 		return review;
 	}
 	@Transactional
-	public KpiReviewHeader getKpiReviewForUser(String userName) {
-		KpiReviewHeader krh = kpiReviewHeaderDAO.findByUserName(userName);
-		krh.getKpiHeader().getUser();
-		return krh;
+	public KpiReviewHeader findKpiReviewForUserIfExits(String userName, String reviewedBy){
+		KpiReviewHeader review = kpiReviewHeaderDAO.findKpiReviewForUserIfExits( userName,  reviewedBy);
+		return review;
 	}
 	@Transactional
-	public KpiReviewHeader loadKPIReviewHeader(Long key) {
-		KpiReviewHeader krh = kpiReviewHeaderDAO.loadByKey(key, KpiReviewHeader.class);
-		krh.getKpiHeader().getUser();
+	public KpiReviewHeader findOrCreateKpiReviewForUser(String userName, String reviewedBy){
+		KpiReviewHeader review = kpiReviewHeaderDAO.findKpiReviewForUserIfExits( userName,  reviewedBy);
+		if(review==null){
+			review = createKpiReviewForUser( userName,  reviewedBy);
+		}
+		review.getReviewedBy().getUserName();
+		review.getKpiHeader().getUser().getUserName();
+
+		return review;
+	}
+
+	@Transactional
+	public KpiReviewHeader getKPIReviewHeader(Long key) {
+		KpiReviewHeader krh = kpiReviewHeaderDAO.getByKey(key, KpiReviewHeader.class);
+		krh.getKpiHeader().getUser().getUserName();
+		krh.getReviewedBy().getFname();
 		return krh;
 	}
 	@Transactional
