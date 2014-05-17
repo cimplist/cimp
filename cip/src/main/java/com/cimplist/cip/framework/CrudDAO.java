@@ -7,8 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class CrudDAO<T,PK extends Serializable> {
-
 	protected SessionFactory sessionFactory;
+	
 	public PK create(T object){
 		Serializable id = sessionFactory.getCurrentSession().save(object);
 		return ((PK)id);
@@ -27,6 +27,10 @@ public abstract class CrudDAO<T,PK extends Serializable> {
 		session.delete(object);
 
 	}
-	public abstract T findByKey(PK key);
-	
+	public  T getByKey(PK key,Class<T> clazz){
+		return (T) sessionFactory.getCurrentSession().get(clazz, key);
+	}
+	public  T loadByKey(PK key,Class<T> clazz){
+		return (T) sessionFactory.getCurrentSession().load(clazz, key);
+	}
 }

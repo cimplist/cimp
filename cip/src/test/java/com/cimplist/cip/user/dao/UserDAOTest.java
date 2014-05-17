@@ -36,7 +36,7 @@ public class UserDAOTest {
 	@Test
 	@Transactional(readOnly=true)
 	public void testFindByKey() {
-		User user = userDAO.findByKey(3l);
+		User user = userDAO.getByKey(3l,User.class);
 		System.out.println("User: "+user);
 		User manager = user.getManager();
 		System.out.println("Manager: "+manager);

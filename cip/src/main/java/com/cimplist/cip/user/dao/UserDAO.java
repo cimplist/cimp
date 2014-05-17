@@ -11,13 +11,6 @@ import com.cimplist.cip.user.domain.User;
 @Repository
 public class UserDAO extends CrudDAO<User,Long> {
 
-	@Override
-	public User findByKey(Long key) {
-		Query query = sessionFactory.getCurrentSession().createQuery(
-				"select a from User a  where a.key = :ID");
-		query.setLong("ID", key);
-		return (User) query.uniqueResult();
-	}
 	public List<User> findAll() {
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"select a from User a");

@@ -17,7 +17,7 @@ public class UserProfileService {
 
 	@Transactional (readOnly=true)	 
 	 public User getUserByKey(Long key){
-		 User user = userDAO.findByKey(key);
+		 User user = userDAO.getByKey(key,User.class);
 		 logger.debug(user.toString());
 		 return user;
 	 }

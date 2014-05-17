@@ -9,9 +9,5 @@ import com.cimplist.cip.user.domain.Role;
 @Repository
 public class RoleDAO extends CrudDAO<Role,Long> {
 
-	@Override
-	public Role findByKey(Long key) {
-		return (Role) sessionFactory.getCurrentSession().get(Role.class, key);
-	}
 
 }

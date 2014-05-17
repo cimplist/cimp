@@ -14,7 +14,6 @@ import com.cimplist.cip.epms.domain.KpiHeader;
 import com.cimplist.cip.epms.domain.KpiItem;
 import com.cimplist.cip.epms.domain.KpiReviewHeader;
 import com.cimplist.cip.epms.domain.KpiReviewItem;
-import com.cimplist.cip.user.web.UserProfileController;
 
 @Service
 public class KpiService {
@@ -38,7 +37,7 @@ public class KpiService {
 		review.setKpiHeader(kpiHeader);
 		review.setStatus("NEW");
 		Long key = kpiReviewHeaderDAO.create(review);
-		review = kpiReviewHeaderDAO.findByKey(key);
+		review = kpiReviewHeaderDAO.getByKey(key,KpiReviewHeader.class);
 		
 		for(KpiItem kpiItem:kpiHeader.getKpiItems()){
 			KpiReviewItem kri = new KpiReviewItem();
@@ -48,7 +47,19 @@ public class KpiService {
 			review.getKpiReviewItems().add(kri);
 			kpiReviewItemDAO.create(kri);
 		}
-		review = kpiReviewHeaderDAO.findByKey(key);
+		review = kpiReviewHeaderDAO.getByKey(key,KpiReviewHeader.class);
 		return review;
+	}
+	@Transactional
+	public KpiReviewHeader getKpiReviewForUser(String userName) {
+		KpiReviewHeader krh = kpiReviewHeaderDAO.findByUserName(userName);
+		krh.getKpiHeader().getUser();
+		return krh;
+	}
+	@Transactional
+	public KpiReviewHeader loadKPIReviewHeader(Long key) {
+		KpiReviewHeader krh = kpiReviewHeaderDAO.loadByKey(key, KpiReviewHeader.class);
+		krh.getKpiHeader().getUser();
+		return krh;
 	}
 }

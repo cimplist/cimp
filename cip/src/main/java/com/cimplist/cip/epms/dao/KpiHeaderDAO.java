@@ -9,10 +9,6 @@ import com.cimplist.cip.framework.CrudDAO;
 @Repository
 public class KpiHeaderDAO  extends CrudDAO<KpiHeader,Long> {
 
-	@Override
-	public KpiHeader findByKey(Long key) {
-		return (KpiHeader) sessionFactory.getCurrentSession().get(KpiHeader.class, key);
-	}
 	
 	public KpiHeader findByUserName(String userName) {
 		Query query = sessionFactory.getCurrentSession().createQuery(

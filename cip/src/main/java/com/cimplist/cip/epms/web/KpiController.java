@@ -1,6 +1,9 @@
 package com.cimplist.cip.epms.web;
 
 
+import java.util.Enumeration;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cimplist.cip.epms.domain.KpiHeader;
 import com.cimplist.cip.epms.domain.KpiReviewHeader;
@@ -32,7 +36,7 @@ public class KpiController {
 	
 	@RequestMapping(value = "/get")	
 	public String getKpi(@ModelAttribute KpiHeader kpiHeader ,HttpServletRequest request, Model model) {  
-		String userName=request.getParameter("userName");		
+		String userName=request.getParameter("userName");	
 		if(userName==null){
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			UserDetails userDetails = (UserDetails)auth.getPrincipal();
@@ -53,22 +57,31 @@ public class KpiController {
 	@RequestMapping(value = "/kpiReview")	
 	public String kpiReview( HttpServletRequest request, Model model) {  
 		String userName=request.getParameter("user.userName");	
-		KpiReviewHeader kpiReviewHeader = kpiService.createKpiReviewForUser(userName);		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		String reviewer = userDetails.getUsername();
+		User reviewedBy = userService.getUserByUserName(reviewer);
+		
+		KpiReviewHeader kpiReviewHeader = kpiService.createKpiReviewForUser(userName);	
+		kpiReviewHeader.setReviewedBy(reviewedBy);
+		
 		model.addAttribute("kpiReviewHeader",kpiReviewHeader);
 		logger.info(kpiReviewHeader.getKpiReviewItems().toString());
-		User user = userService.getUserWithTeamByUserName(userName);
-		model.addAttribute("user",user);
 		
 		return "mykpireview.tile";
 	}
-	@RequestMapping(value = "/kpiReviewSave")	
-	public String kpiReviewSave( HttpServletRequest request, Model model) {  
-		String userName=request.getParameter("user.userName");	
-		KpiReviewHeader kpiReviewHeader = kpiService.createKpiReviewForUser(userName);		
+	@RequestMapping(value = "/saveKpiReview")	
+	public String kpiReviewSave(@RequestParam Long key, HttpServletRequest request, Model model) {  
+		KpiReviewHeader kpiReviewHeader = kpiService.loadKPIReviewHeader(key);
+		logger.info(kpiReviewHeader.toString());
+		
+		Map<String, String[]> form = request.getParameterMap();
+		for(String p:form.keySet()){
+			logger.info(p+":"+form.get(p));	
+			
+		}
+		
 		model.addAttribute("kpiReviewHeader",kpiReviewHeader);
-		logger.info(kpiReviewHeader.getKpiReviewItems().toString());
-		User user = userService.getUserWithTeamByUserName(userName);
-		model.addAttribute("user",user);
 		
 		return "mykpireview.tile";
 	}

@@ -8,9 +8,5 @@ import com.cimplist.cip.framework.CrudDAO;
 @Repository
 public class KpiCategoryDAO extends CrudDAO<KpiCategory,Long> {
 
-	@Override
-	public KpiCategory findByKey(Long key) {
-		return (KpiCategory) sessionFactory.getCurrentSession().get(KpiCategory.class, key);
-	}
 
 }
