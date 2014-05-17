@@ -26,7 +26,7 @@
       	<td>${item.status}</td>             
         <td>${item.kpiItem.kpiItemDesc}</td> 
         <td>${item.kpiItem.kpiParameterDesc}</td>    
-  		<td><form:textarea id="item.comments.${item.key}" name ="item.comments.${item.key}" path="${item.comments}" rows="3" cols="30" placeholder="Enter Review Comments"></form:textarea></td>
+  		<td><textarea id="item.comments.${item.key}" name ="item.comments.${item.key}" rows="3" cols="30" placeholder="Enter Review Comments">${item.comments} </textarea></td>
         </tr>
 </c:forEach>
 </table>

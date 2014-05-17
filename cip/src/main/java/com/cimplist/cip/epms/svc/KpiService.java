@@ -1,5 +1,7 @@
 package com.cimplist.cip.epms.svc;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -61,5 +63,13 @@ public class KpiService {
 		KpiReviewHeader krh = kpiReviewHeaderDAO.loadByKey(key, KpiReviewHeader.class);
 		krh.getKpiHeader().getUser();
 		return krh;
+	}
+	@Transactional
+	public void updateReviewComments(Map<Long,String>  comments) {
+		for(Long key:comments.keySet()){
+			KpiReviewItem review = kpiReviewItemDAO.getByKey(key, KpiReviewItem.class);
+			review.setComments(comments.get(key));
+			kpiReviewItemDAO.update(review);
+		}
 	}
 }

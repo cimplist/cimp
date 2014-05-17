@@ -72,15 +72,17 @@ public class KpiController {
 	}
 	@RequestMapping(value = "/saveKpiReview")	
 	public String kpiReviewSave(@RequestParam Long key, HttpServletRequest request, Model model) {  
-		KpiReviewHeader kpiReviewHeader = kpiService.loadKPIReviewHeader(key);
-		logger.info(kpiReviewHeader.toString());
-		
+			
 		Map<String, String[]> form = request.getParameterMap();
-		for(String p:form.keySet()){
-			logger.info(p+":"+form.get(p));	
+		Map<Long,String>  comments = KpiControllerUtil.getKpiReviewComments(form);
+		
+		for(Long p:comments.keySet()){
+			logger.info(p+":"+comments.get(p));	
 			
 		}
-		
+		kpiService.updateReviewComments(comments);
+		KpiReviewHeader kpiReviewHeader = kpiService.loadKPIReviewHeader(key);
+		logger.info(kpiReviewHeader.toString());
 		model.addAttribute("kpiReviewHeader",kpiReviewHeader);
 		
 		return "mykpireview.tile";
