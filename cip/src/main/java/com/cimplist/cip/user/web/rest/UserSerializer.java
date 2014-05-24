@@ -17,8 +17,8 @@ public class UserSerializer extends JsonSerializer<User> {
 		jgen.writeStartObject();
 		jgen.writeNumberField("Key", user.getKey());
 		jgen.writeStringField("UserID", user.getUserName());
-		jgen.writeStringField("First Name", user.getFname());
-		jgen.writeStringField("Last Name", user.getLname());
+		jgen.writeStringField("FirstName", user.getFname());
+		jgen.writeStringField("LastName", user.getLname());
 		jgen.writeStringField("Manager", user.getManager().getFname()+" "+user.getManager().getMname()+" "+user.getManager().getLname());
 		jgen.writeStringField("Email", user.getEmail());		
 		jgen.writeEndObject();

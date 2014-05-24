@@ -17,7 +17,7 @@
 		<put-attribute name="navtop" value="/WEB-INF/views/tiles/top-nav.jsp" />
 		<put-attribute name="menu"
 			value="/WEB-INF/views/tiles/common_menu.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/user/myteam.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/user/myteam-ajax.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
 	</definition>	
 	<definition name="mykpi.tile" template="/WEB-INF/views/layouts/details.jsp">
