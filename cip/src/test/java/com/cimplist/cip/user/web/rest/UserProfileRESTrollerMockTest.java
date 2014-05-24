@@ -48,8 +48,8 @@ private static final String BASE_URI = "/rest";
 			result.andDo(print());
 			result.andExpect(status().isOk());
 			result.andExpect(content().contentType(MediaType.APPLICATION_JSON));
-			result.andExpect(jsonPath("key").value(3));
-			result.andExpect(jsonPath("userName").value("samm"));
+			result.andExpect(jsonPath("Key").value(3));
+			result.andExpect(jsonPath("UserID").value("samm"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(e.toString(),false);
@@ -62,8 +62,8 @@ private static final String BASE_URI = "/rest";
 			result.andDo(print());
 			result.andExpect(status().isOk());
 			result.andExpect(content().contentType(MediaType.APPLICATION_JSON));
-			result.andExpect(jsonPath("[0].key").value(2));
-			result.andExpect(jsonPath("[0].userName").value("markl"));
+			result.andExpect(jsonPath("[0].Key").value(2));
+			result.andExpect(jsonPath("[0].UserID").value("markl"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(e.toString(),false);

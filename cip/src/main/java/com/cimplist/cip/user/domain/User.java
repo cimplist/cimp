@@ -18,12 +18,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.cimplist.cip.user.web.rest.UserSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
 @Entity
 @Table(name="tbUser")
-@JsonIgnoreProperties({"manager","subordinates","password","passwordConfirm","accountNonExpired","accountNonLocked","credentialsNonExpired","enabled"})
+@JsonIgnoreProperties({"manager","subordinates","roles", "password","passwordConfirm","accountNonExpired","accountNonLocked","credentialsNonExpired","enabled"})
+@JsonSerialize(using = UserSerializer.class)
 public class User {
 	@Id
 	@GeneratedValue
@@ -50,7 +53,7 @@ public class User {
 	private List<Role> roles=new LinkedList<Role>();
 	
 	
-	@ManyToOne( fetch = FetchType.LAZY,cascade={CascadeType.ALL})
+	@ManyToOne( fetch = FetchType.EAGER,cascade={CascadeType.ALL})
     @JoinColumn(name="managerID")
     private User manager;
  

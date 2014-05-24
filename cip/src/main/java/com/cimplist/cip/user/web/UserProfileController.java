@@ -44,6 +44,7 @@ public class UserProfileController {
 		model.addAttribute("user",user);
 		return "myteam.tile";
 	}
+	
 	@RequestMapping(value = "/myaccount")	
 	public String myAccount(Model model) {  
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
