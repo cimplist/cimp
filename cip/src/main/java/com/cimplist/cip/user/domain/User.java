@@ -162,4 +162,12 @@ public class User {
 	public int hashCode() {
 		return userName.hashCode();
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if(userName.equals(((User)obj).userName)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
