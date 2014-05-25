@@ -18,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.cimplist.cip.user.web.rest.UserSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -27,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Table(name="tbUser")
 @JsonIgnoreProperties({"manager","subordinates","roles", "password","passwordConfirm","accountNonExpired","accountNonLocked","credentialsNonExpired","enabled"})
 @JsonSerialize(using = UserSerializer.class)
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public class User {
 	@Id
 	@GeneratedValue
@@ -153,5 +157,9 @@ public class User {
 	}
 	public void setSubordinates(Set<User> subordinates) {
 		this.subordinates = subordinates;
+	}
+	@Override
+	public int hashCode() {
+		return userName.hashCode();
 	}
 }
