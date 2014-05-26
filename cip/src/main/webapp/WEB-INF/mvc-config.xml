@@ -11,6 +11,7 @@
 	
 	<context:component-scan base-package="com.cimplist.cip.epms.web" />
 	<context:component-scan base-package="com.cimplist.cip.user.web" />	
+	<context:component-scan base-package="com.cimplist.cip.framework.rest" />		
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<!-- Returns messages based on a reloadable resource bundle -->
 
