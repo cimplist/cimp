@@ -36,7 +36,10 @@
 		<security:intercept-url pattern="/userprofile/**"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/kpi/**"
+			access="isAuthenticated()" />	
+		<security:intercept-url pattern="/swagger-ui/**"
 			access="isAuthenticated()" />			
+					
 		<security:logout />
 	</security:http>
 
