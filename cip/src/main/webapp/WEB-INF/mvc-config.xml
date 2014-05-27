@@ -13,6 +13,20 @@
 	<context:component-scan base-package="com.cimplist.cip.user.web" />	
 	<context:component-scan base-package="com.cimplist.cip.framework.rest" />		
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/swagger-ui/**" location="/swagger-ui/" />	
+	
+	<context:property-placeholder location="classpath:/swagger.properties" />
+	
+		<!-- Enable scanning of spring @Configuration classes -->
+	  <context:annotation-config/>
+	
+	  <!-- Enable the default documentation controller-->
+	  <context:component-scan base-package="com.mangofactory.swagger.controllers"/>
+	
+	  <!-- Pick up the bundled spring config. Not really required if you're already importing the configuration bean
+	  as part of an application specific configuration bean via the previous component scan-->
+	  <context:component-scan base-package="com.mangofactory.swagger.configuration"/>
+	  
 	<!-- Returns messages based on a reloadable resource bundle -->
 
 	<bean id="messageSource"
