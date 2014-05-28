@@ -6,8 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name="tbRole")
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Role {
 	@Id
 	@GeneratedValue

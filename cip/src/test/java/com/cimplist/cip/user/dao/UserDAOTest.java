@@ -10,12 +10,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cimplist.cip.user.dao.UserDAO;
 import com.cimplist.cip.user.domain.User;
+import com.cimplist.cip.user.web.rest.UserProfileRESTroller;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,6 +26,8 @@ import com.cimplist.cip.user.domain.User;
 		"classpath:spring/application-config.xml"
 		})
 public class UserDAOTest {
+	private static final Logger logger = LoggerFactory.getLogger(UserProfileRESTroller.class);
+
 	@Inject
 	UserDAO userDAO;
 	@Before
@@ -36,12 +41,62 @@ public class UserDAOTest {
 	@Test
 	@Transactional(readOnly=true)
 	public void testFindByKey() {
-		User user = userDAO.getByKey(3l,User.class);
-		System.out.println("User: "+user);
-		User manager = user.getManager();
-		System.out.println("Manager: "+manager);
-		Set<User> team = user.getSubordinates();
-		System.out.println("Team: "+team);
+		for(int i=0;i<2;i++){
+			logger.info("1>*******************Running Load for user Key:"+3);
+
+			User user = userDAO.getByKey(3l,User.class);
+			System.out.println("User: "+user);
+			User manager = user.getManager();
+			System.out.println("Manager: "+manager);
+			Set<User> team = user.getSubordinates();
+			System.out.println("Team: "+team);
+		}
 	}
+	@Test
+	@Transactional(readOnly=true)
+	public void testFindByKey2() {
+		for(int i=0;i<2;i++){
+			logger.info("2->*******************Running Load for user Key:"+3);
+
+			User user = userDAO.getByKey(3l,User.class);
+			System.out.println("User: "+user);
+			User manager = user.getManager();
+			System.out.println("Manager: "+manager);
+			Set<User> team = user.getSubordinates();
+			System.out.println("Team: "+team);
+		}
+	}
+	
+	@Test
+	@Transactional(readOnly=true)
+	public void testFindByUserName() {
+		String userName="samm";
+		for(int i=0;i<2;i++){
+			logger.info(i+"->++++++**********Running Load for user ID:"+userName);
+
+			User user = userDAO.getUserByUserName(userName);
+			System.out.println("User: "+user);
+			User manager = user.getManager();
+			System.out.println("Manager: "+manager);
+			Set<User> team = user.getSubordinates();
+			System.out.println("Team: "+team);
+		}
+	}
+	@Test
+	@Transactional(readOnly=true)
+	public void testFindByUserName2() {
+		String userName="samm";
+		for(int i=0;i<2;i++){
+			logger.info(i+"->++++++**********Running Load for user ID:"+userName);
+
+			User user = userDAO.getUserByUserName(userName);
+			System.out.println("User: "+user);
+			User manager = user.getManager();
+			System.out.println("Manager: "+manager);
+			Set<User> team = user.getSubordinates();
+			System.out.println("Team: "+team);
+		}
+	}
+	
 
 }

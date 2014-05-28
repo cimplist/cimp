@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Table(name="tbUser")
 @JsonIgnoreProperties({"manager","subordinates","roles", "password","passwordConfirm","accountNonExpired","accountNonLocked","credentialsNonExpired","enabled"})
 @JsonSerialize(using = UserSerializer.class)
-@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class User {
 	@Id
 	@GeneratedValue
