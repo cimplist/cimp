@@ -11,7 +11,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name="tbRole")
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public class Role {
 	@Id
 	@GeneratedValue

@@ -2,7 +2,7 @@
 <ehcache>
 	<diskStore path="java.io.tmpdir" />
 	<cache name="org.hibernate.cache.internal.StandardQueryCache"
-		maxElementsInMemory="5" eternal="false" timeToLiveSeconds="120"
+		maxElementsInMemory="20" eternal="false" timeToLiveSeconds="120"
 		overflowToDisk="true" />
 
 	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache"

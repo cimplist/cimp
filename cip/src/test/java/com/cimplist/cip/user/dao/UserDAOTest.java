@@ -6,12 +6,17 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.stat.SecondLevelCacheStatistics;
+import org.hibernate.stat.Statistics;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +31,9 @@ import com.cimplist.cip.user.web.rest.UserProfileRESTroller;
 		"classpath:spring/application-config.xml"
 		})
 public class UserDAOTest {
-	private static final Logger logger = LoggerFactory.getLogger(UserProfileRESTroller.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserDAOTest.class);
+    @Autowired
+    private SessionFactory sessionFactory;
 
 	@Inject
 	UserDAO userDAO;
@@ -42,7 +49,7 @@ public class UserDAOTest {
 	@Transactional(readOnly=true)
 	public void testFindByKey() {
 		for(int i=0;i<1;i++){
-			logger.info("1>*******************Running Load for user Key:"+3);
+			logger.info("1>START *******************Running Load for user Key:"+3);
 
 			User user = userDAO.getByKey(3l,User.class);
 			System.out.println("User: "+user);
@@ -51,12 +58,15 @@ public class UserDAOTest {
 			Set<User> team = user.getSubordinates();
 			System.out.println("Team: "+team);
 		}
+		logger.info("1>END *******************Running Load for user Key:"+3);
+		printStatistics() ;
+
 	}
 	@Test
 	@Transactional(readOnly=true)
 	public void testFindByKey2() {
 		for(int i=0;i<1;i++){
-			logger.info("2->*******************Running Load for user Key:"+3);
+			logger.info("2-> START *******************Running Load for user Key:"+3);
 
 			User user = userDAO.getByKey(3l,User.class);
 			System.out.println("User: "+user);
@@ -65,6 +75,9 @@ public class UserDAOTest {
 			Set<User> team = user.getSubordinates();
 			System.out.println("Team: "+team);
 		}
+		logger.info("2-> END *******************Running Load for user Key:"+3);
+		printStatistics() ;
+
 	}
 	
 	@Test
@@ -72,7 +85,7 @@ public class UserDAOTest {
 	public void testFindByUserName() {
 		String userName="samm";
 		for(int i=0;i<1;i++){
-			logger.info("2->++++++**********Running Load for user ID:"+userName);
+			logger.info("1-> START ++++++**********Running Load for user ID:"+userName);
 
 			User user = userDAO.getUserByUserName(userName);
 			System.out.println("User: "+user);
@@ -81,13 +94,18 @@ public class UserDAOTest {
 			Set<User> team = user.getSubordinates();
 			System.out.println("Team: "+team);
 		}
+		logger.info("1-> END ++++++**********Running Load for user ID:"+userName);
+
+		printStatistics() ;
+
 	}
 	@Test
 	@Transactional(readOnly=true)
+	
 	public void testFindByUserName2() {
 		String userName="samm";
 		for(int i=0;i<1;i++){
-			logger.info("2->++++++**********Running Load for user ID:"+userName);
+			logger.info("2-> START ++++++**********Running Load for user ID:"+userName);
 
 			User user = userDAO.getUserByUserName(userName);
 			System.out.println("User: "+user);
@@ -96,6 +114,28 @@ public class UserDAOTest {
 			Set<User> team = user.getSubordinates();
 			System.out.println("Team: "+team);
 		}
+		logger.info("2-> END ++++++**********Running Load for user ID:"+userName);
+
+		printStatistics() ;
+	}
+	
+	public void printStatistics() {
+		Statistics stat = sessionFactory.getStatistics();
+		String regions[] = stat.getSecondLevelCacheRegionNames();
+		logger.info(regions.toString());
+		for(String regionName:regions) {
+
+			SecondLevelCacheStatistics stat2 = stat.getSecondLevelCacheStatistics(regionName);
+			logger.info("2nd Level Cache(" +regionName+") Put Count: "+stat2.getPutCount());
+			logger.info("2nd Level Cache(" +regionName+") HIt Count: "+stat2.getHitCount());
+
+			logger.info("2nd Level Cache(" +regionName+") Miss Count: "+stat2.getMissCount());
+
+
+
+		}
+		
+
 	}
 	
 
