@@ -41,7 +41,7 @@ public class UserDAOTest {
 	@Test
 	@Transactional(readOnly=true)
 	public void testFindByKey() {
-		for(int i=0;i<2;i++){
+		for(int i=0;i<1;i++){
 			logger.info("1>*******************Running Load for user Key:"+3);
 
 			User user = userDAO.getByKey(3l,User.class);
@@ -55,7 +55,7 @@ public class UserDAOTest {
 	@Test
 	@Transactional(readOnly=true)
 	public void testFindByKey2() {
-		for(int i=0;i<2;i++){
+		for(int i=0;i<1;i++){
 			logger.info("2->*******************Running Load for user Key:"+3);
 
 			User user = userDAO.getByKey(3l,User.class);
@@ -71,8 +71,8 @@ public class UserDAOTest {
 	@Transactional(readOnly=true)
 	public void testFindByUserName() {
 		String userName="samm";
-		for(int i=0;i<2;i++){
-			logger.info(i+"->++++++**********Running Load for user ID:"+userName);
+		for(int i=0;i<1;i++){
+			logger.info("2->++++++**********Running Load for user ID:"+userName);
 
 			User user = userDAO.getUserByUserName(userName);
 			System.out.println("User: "+user);
@@ -86,8 +86,8 @@ public class UserDAOTest {
 	@Transactional(readOnly=true)
 	public void testFindByUserName2() {
 		String userName="samm";
-		for(int i=0;i<2;i++){
-			logger.info(i+"->++++++**********Running Load for user ID:"+userName);
+		for(int i=0;i<1;i++){
+			logger.info("2->++++++**********Running Load for user ID:"+userName);
 
 			User user = userDAO.getUserByUserName(userName);
 			System.out.println("User: "+user);

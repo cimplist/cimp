@@ -40,4 +40,17 @@ public class Role {
 	public void setKey(Long key) {
 		this.key = key;
 	}
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return name.hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(name.equals(((Role)obj).name)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

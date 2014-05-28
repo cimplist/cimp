@@ -13,14 +13,14 @@ public class UserDAO extends CrudDAO<User,Long> {
 
 	public List<User> findAll() {
 		Query query = sessionFactory.getCurrentSession().createQuery(
-				"select a from User a");
+				"select a from User a").setCacheable(true);
 		List<User> brands = query.list();
 
 		return brands;
 	}
 	public User getUserByUserName(String userName) {
 		Query query = sessionFactory.getCurrentSession().createQuery(
-				"select a from User a  where a.userName = :userName");
+				"select a from User a  where a.userName = :userName").setCacheable(true);
 		query.setString("userName", userName);
 		return (User) query.uniqueResult();
 	}
