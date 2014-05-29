@@ -59,7 +59,7 @@ public class UserDAOTest {
 			System.out.println("Team: "+team);
 		}
 		logger.info("1>END *******************Running Load for user Key:"+3);
-		printStatistics() ;
+		printStatistics(sessionFactory) ;
 
 	}
 	@Test
@@ -76,7 +76,7 @@ public class UserDAOTest {
 			System.out.println("Team: "+team);
 		}
 		logger.info("2-> END *******************Running Load for user Key:"+3);
-		printStatistics() ;
+		printStatistics(sessionFactory) ;
 
 	}
 	
@@ -96,7 +96,7 @@ public class UserDAOTest {
 		}
 		logger.info("1-> END ++++++**********Running Load for user ID:"+userName);
 
-		printStatistics() ;
+		printStatistics(sessionFactory) ;
 
 	}
 	@Test
@@ -116,26 +116,19 @@ public class UserDAOTest {
 		}
 		logger.info("2-> END ++++++**********Running Load for user ID:"+userName);
 
-		printStatistics() ;
+		printStatistics(sessionFactory) ;
 	}
 	
-	public void printStatistics() {
+	public static void printStatistics(SessionFactory sessionFactory) {
 		Statistics stat = sessionFactory.getStatistics();
 		String regions[] = stat.getSecondLevelCacheRegionNames();
 		logger.info(regions.toString());
 		for(String regionName:regions) {
-
 			SecondLevelCacheStatistics stat2 = stat.getSecondLevelCacheStatistics(regionName);
 			logger.info("2nd Level Cache(" +regionName+") Put Count: "+stat2.getPutCount());
 			logger.info("2nd Level Cache(" +regionName+") HIt Count: "+stat2.getHitCount());
-
 			logger.info("2nd Level Cache(" +regionName+") Miss Count: "+stat2.getMissCount());
-
-
-
 		}
-		
-
 	}
 	
 

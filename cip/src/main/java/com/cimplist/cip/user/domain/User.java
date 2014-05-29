@@ -50,7 +50,7 @@ public class User {
 	private boolean enabled;
 
 
-	
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(name="tbUserAuthorityJT", joinColumns={@JoinColumn(name="userID")}, 
     	inverseJoinColumns={@JoinColumn(name="roleID")})
@@ -61,7 +61,7 @@ public class User {
     @JoinColumn(name="managerID")
     private User manager;
  
-	
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy="manager")
     private Set<User> subordinates = new HashSet<User>();
 	
