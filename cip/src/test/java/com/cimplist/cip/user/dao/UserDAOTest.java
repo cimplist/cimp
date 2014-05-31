@@ -2,6 +2,7 @@ package com.cimplist.cip.user.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -130,6 +131,12 @@ public class UserDAOTest {
 			logger.info("2nd Level Cache(" +regionName+") Miss Count: "+stat2.getMissCount());
 		}
 	}
-	
-
+	@Test
+	@Transactional(readOnly=true)
+	public void testFindAll() {
+		List<User> users=userDAO.findAll();
+		for(User user:users) {
+			logger.info(user.toString());
+		}
+	}
 }

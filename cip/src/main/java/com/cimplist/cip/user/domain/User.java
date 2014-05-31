@@ -14,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -31,6 +34,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonIgnoreProperties({"manager","subordinates","roles", "password","passwordConfirm","accountNonExpired","accountNonLocked","credentialsNonExpired","enabled"})
 @JsonSerialize(using = UserSerializer.class)
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@NamedQueries({
+	@NamedQuery(
+	name = "findAllUsers",
+	query = "select a from User a"
+	)
+})
 public class User {
 	@Id
 	@GeneratedValue
