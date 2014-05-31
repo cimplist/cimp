@@ -28,7 +28,7 @@ public class UserDAO extends CrudDAO<User,Long> {
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"select a from User a  where a.manager.userName = :userName").setCacheable(true);
 		query.setString("userName", mgrUserName);
-		query.setFirstResult((pageNo*pageSize-pageSize));
+		query.setFirstResult((pageNo*pageSize)-pageSize);
 		query.setMaxResults(pageSize);
 		List<User> users = query.list();
 		return users;
