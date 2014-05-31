@@ -13,9 +13,10 @@ public class UserDAO extends CrudDAO<User,Long> {
 
 	public List<User> findAll() {
 		Query query = sessionFactory.getCurrentSession().getNamedQuery("findAllUsers").setCacheable(true);
-		List<User> brands = query.list();
+		
+		List<User> users = query.list();
 
-		return brands;
+		return users;
 	}
 	public User getUserByUserName(String userName) {
 		Query query = sessionFactory.getCurrentSession().createQuery(
@@ -23,7 +24,15 @@ public class UserDAO extends CrudDAO<User,Long> {
 		query.setString("userName", userName);
 		return (User) query.uniqueResult();
 	}
-
+	public List<User> findUsersByManagerName(String mgrUserName,int pageNo, int pageSize) {
+		Query query = sessionFactory.getCurrentSession().createQuery(
+				"select a from User a  where a.manager.userName = :userName").setCacheable(true);
+		query.setString("userName", mgrUserName);
+		query.setFirstResult((pageNo*pageSize-pageSize));
+		query.setMaxResults(pageSize);
+		List<User> users = query.list();
+		return users;
+	}
 
 
 }

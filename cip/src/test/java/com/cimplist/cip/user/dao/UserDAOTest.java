@@ -139,4 +139,16 @@ public class UserDAOTest {
 			logger.info(user.toString());
 		}
 	}
+	@Test
+	@Transactional(readOnly=true)
+	public void testFindUsersByManagerName() {
+		List<User> page1=userDAO.findUsersByManagerName("markl", 1, 1);
+		for(User user:page1) {
+			logger.info(user.toString());
+		}
+		List<User> page2=userDAO.findUsersByManagerName("markl", 2, 1);
+		for(User user:page2) {
+			logger.info(user.toString());
+		}
+	}
 }
