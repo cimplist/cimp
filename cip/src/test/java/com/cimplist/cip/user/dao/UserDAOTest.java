@@ -1,7 +1,5 @@
 package com.cimplist.cip.user.dao;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +10,6 @@ import org.hibernate.stat.SecondLevelCacheStatistics;
 import org.hibernate.stat.Statistics;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,9 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cimplist.cip.user.dao.UserDAO;
 import com.cimplist.cip.user.domain.User;
-import com.cimplist.cip.user.web.rest.UserProfileRESTroller;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -137,7 +132,12 @@ public class UserDAOTest {
 		List<User> users=userDAO.findAll();
 		for(User user:users) {
 			logger.info(user.toString());
+			if(user.getManager()!=null) {
+				user.getManager().getEmail();
+			}
+			user.getSubordinates().size();
 		}
+		printStatistics(sessionFactory) ;
 	}
 	@Test
 	@Transactional(readOnly=true)
@@ -150,5 +150,6 @@ public class UserDAOTest {
 		for(User user:page2) {
 			logger.info(user.toString());
 		}
+		printStatistics(sessionFactory) ;
 	}
 }

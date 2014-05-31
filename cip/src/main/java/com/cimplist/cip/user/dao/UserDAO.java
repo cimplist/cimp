@@ -12,7 +12,7 @@ import com.cimplist.cip.user.domain.User;
 public class UserDAO extends CrudDAO<User,Long> {
 
 	public List<User> findAll() {
-		Query query = sessionFactory.getCurrentSession().getNamedQuery("findAllUsers").setCacheable(true);
+		Query query = sessionFactory.getCurrentSession().getNamedQuery("findAllUsers");
 		
 		List<User> users = query.list();
 

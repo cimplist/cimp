@@ -16,13 +16,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
 
 import com.cimplist.cip.user.web.rest.UserSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -61,6 +62,7 @@ public class User {
 
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.JOIN)
     @JoinTable(name="tbUserAuthorityJT", joinColumns={@JoinColumn(name="userID")}, 
     	inverseJoinColumns={@JoinColumn(name="roleID")})
 	private List<Role> roles=new LinkedList<Role>();
@@ -72,6 +74,7 @@ public class User {
  
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy="manager")
+	@Fetch(FetchMode.SELECT)
     private Set<User> subordinates = new HashSet<User>();
 	
 	public String toString(){
@@ -169,11 +172,11 @@ public class User {
 	}
 	@Override
 	public int hashCode() {
-		return userName.hashCode();
+		return getUserName().hashCode();
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if(userName.equals(((User)obj).userName)){
+		if(getUserName().equals(((User)obj).getUserName())){
 			return true;
 		}else{
 			return false;
