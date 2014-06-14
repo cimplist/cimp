@@ -8,7 +8,25 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	<context:component-scan base-package="com.cimplist.cip.security" />
+	<context:component-scan base-package="com.cimplist.cip.security.token" />
+
 	<context:annotation-config />
+
+	<bean class="com.cimplist.cip.security.token.CustomTokenAuthenticationFilter"
+	    id="authenticationTokenProcessingFilter">
+	    <constructor-arg type="java.lang.String"><value>/api/**</value></constructor-arg>
+		<property name="authenticationManager" ref="noOpAuthenticationManager"/>
+		<property name="authenticationSuccessHandler" ref="tokenAuthenticationSuccessHandler"/>
+		
+	</bean>
+
+	<security:http  pattern="/api/**" entry-point-ref="restAuthenticationEntryPoint" use-expressions="true" auto-config="false" create-session="stateless" >
+		<security:intercept-url pattern="/api/token" access="permitAll" />
+    	<security:custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER"   />
+		<security:intercept-url pattern="/api/**" access="isAuthenticated()" />
+		<security:logout />
+	</security:http>
+
 
 	<bean id="mySuccessHandler"
 		class="com.cimplist.cip.security.RestSavedRequestAwareAuthenticationSuccessHandler" />
