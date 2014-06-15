@@ -39,6 +39,11 @@
 						placeholder="Type Password" required="required"/></td>
 				</tr>
 				<tr>
+					<td>Remember me:</td>
+					<td><input type="checkbox" name="_spring_security_remember_me"/></td>
+				</tr>
+				
+				<tr>
 					<td colspan='2' align="center" style="font-size: 1em;"><input
 						name="submit" type="submit" value="Login"
 						style="padding: 5px; padding-right: 10px; padding-left: 10px; font-size:1em; " /></td>

@@ -57,7 +57,7 @@
 			access="isAuthenticated()" />	
 		<security:intercept-url pattern="/swagger-ui/**"
 			access="isAuthenticated()" />			
-					
+		<security:remember-me key="cipms"/>
 		<security:logout />
 	</security:http>
 
