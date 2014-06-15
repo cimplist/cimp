@@ -1,4 +1,4 @@
-package com.cimplist.cip.framework.rest;
+package com.cimplist.cip.framework.wadl;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
